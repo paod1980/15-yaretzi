@@ -21,11 +21,12 @@
             position: relative;
         }
 
-        /* Pantalla de Portada / Entrada */
+        /* Pantalla de Entrada / Portada */
         #welcomeOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #030814;
+            background: rgba(3, 8, 20, 0.95);
+            backdrop-filter: blur(8px);
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -38,79 +39,78 @@
 
         .welcome-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.9);
             margin-bottom: 10px;
         }
 
         .welcome-sub {
             font-family: 'Cinzel', serif;
             color: #d4af37;
-            letter-spacing: 3px;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
+            letter-spacing: 4px;
+            font-size: 0.95rem;
+            margin-bottom: 35px;
         }
 
         .btn-enter {
-            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #997a15 100%);
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa820a 100%);
             color: #030814;
             font-weight: 700;
             border: none;
-            padding: 15px 32px;
-            border-radius: 30px;
-            font-size: 1rem;
+            padding: 16px 36px;
+            border-radius: 35px;
+            font-size: 1.05rem;
             letter-spacing: 1px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
             cursor: pointer;
             animation: pulseBtn 2s infinite;
         }
 
         @keyframes pulseBtn {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+            50% { transform: scale(1.06); box-shadow: 0 0 30px rgba(212, 175, 55, 0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
         }
 
-        /* Fondo Animado de Estrellas */
+        /* Capa de destellos y burbujas vivas */
         .stars-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 0;
-            background: radial-gradient(circle at 50% 20%, #0d1e3d 0%, #030814 80%);
+            z-index: 1;
         }
 
         .bubble {
             position: absolute;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            animation: floatUp 8s infinite ease-in-out;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+            animation: floatUp 7s infinite ease-in-out;
             pointer-events: none;
         }
 
         @keyframes floatUp {
             0% { transform: translateY(105vh) scale(0.3); opacity: 0; }
-            30% { opacity: 0.8; }
-            80% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+            30% { opacity: 0.9; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
         .sparkle {
             position: absolute;
-            width: 4px; height: 4px;
+            width: 5px; height: 5px;
             background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ffd700;
-            animation: twinkle 3s infinite ease-in-out;
+            box-shadow: 0 0 10px #ffd700, 0 0 15px #ffffff;
+            animation: twinkle 2.5s infinite ease-in-out;
             pointer-events: none;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.4); }
+            0%, 100% { opacity: 0.2; transform: scale(0.7); }
+            50% { opacity: 1; transform: scale(1.5); }
         }
 
         /* Tarjeta Principal */
@@ -119,45 +119,52 @@
             z-index: 10;
             width: 100%;
             max-width: 420px;
-            background: rgba(6, 14, 30, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(5, 12, 28, 0.88);
+            backdrop-filter: blur(12px);
             border-radius: 25px;
-            border: 1.5px solid rgba(212, 175, 55, 0.45);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.25);
+            border: 1.5px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(212, 175, 55, 0.3);
             padding: 35px 22px;
             text-align: center;
             overflow: hidden;
         }
 
-        .moon-wrapper {
+        /* Luna Ilustrada con Flores */
+        .moon-header {
             position: relative;
             width: 170px;
             height: 170px;
             margin: 0 auto 10px auto;
         }
 
-        .moon-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.7)); }
-        
+        .moon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+        }
+
         .title-sub {
             font-family: 'Cinzel', serif;
             letter-spacing: 5px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
             margin-top: 5px;
         }
 
         .name {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.2rem;
+            font-size: 4.3rem;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 8px #d4af37;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 10px #d4af37;
             line-height: 1;
             margin-bottom: 25px;
         }
 
         .section-box {
-            border-top: 1px solid rgba(212, 175, 55, 0.3);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: 1px solid rgba(212, 175, 55, 0.35);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
             padding: 12px 0;
             margin: 14px 0;
         }
@@ -168,12 +175,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 4px;
+            font-weight: 500;
         }
 
         .value {
             font-size: 1.1rem;
             font-weight: 500;
             color: #ffffff;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
         }
 
         .quote {
@@ -182,14 +191,15 @@
             color: #d0deef;
             margin: 22px 10px;
             line-height: 1.5;
+            font-weight: 300;
         }
 
         .details-grid {
             display: flex;
             justify-content: space-around;
             margin: 18px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid rgba(212, 175, 55, 0.25);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             padding: 12px 0;
         }
 
@@ -204,7 +214,7 @@
 
         .btn-map {
             display: inline-block;
-            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #997a15 100%);
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa820a 100%);
             color: #030814;
             font-weight: 700;
             text-decoration: none;
@@ -212,7 +222,7 @@
             border-radius: 30px;
             font-size: 0.85rem;
             letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
             margin-bottom: 18px;
         }
 
@@ -224,6 +234,7 @@
             font-family: 'Cinzel', serif;
             font-size: 0.85rem;
             color: #d4af37;
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
         .music-btn {
@@ -245,24 +256,25 @@
 </head>
 <body>
 
-    <!-- Pantalla de Entrada / Portada -->
+    <!-- Portada Interactiva -->
     <div id="welcomeOverlay">
         <div class="welcome-sub">TE INVITAMOS A CELEBRAR LOS</div>
         <div class="welcome-title">15 Años de Yaretzi</div>
         <button class="btn-enter" onclick="openInvitation()">✨ ABRIR INVITACIÓN ✉️</button>
     </div>
 
+    <!-- Estrellas y Burbujas en Movimiento -->
     <div class="stars-bg" id="starsBg"></div>
 
     <button class="music-btn" onclick="toggleAudio()" id="musicBtn">🎵</button>
     
-    <!-- Archivo de canción MP3 local -->
+    <!-- Canción MP3 -->
     <audio id="bgAudio" loop src="cancion.mp3"></audio>
 
     <div class="card-container">
-        <!-- Luna Dorada e Ilustración Floral -->
-        <div class="moon-wrapper">
-            <svg class="moon-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ilustración de Luna Floral -->
+        <div class="moon-header">
+            <svg class="moon-svg" viewBox="0 0 200 200" style="width:100%; height:100%; filter: drop-shadow(0 0 12px rgba(212,175,55,0.8));">
                 <path d="M110 20 C60 20 20 60 20 110 C20 160 60 200 110 200 C80 185 65 150 65 110 C65 70 80 35 110 20 Z" fill="url(#goldGrad)" />
                 <path d="M40 90 Q10 80 20 60 Q40 70 40 90 Z" fill="#8ab4f8" opacity="0.9" />
                 <path d="M50 75 Q25 55 45 40 Q60 60 50 75 Z" fill="#b3d1ff" opacity="0.9" />
@@ -339,12 +351,12 @@
     </div>
 
     <script>
-        // Efecto de burbujas y destellos
+        // Animaciones de Burbujas y Destellos
         var bg = document.getElementById('starsBg');
-        for (var i = 0; i < 18; i++) {
+        for (var i = 0; i < 20; i++) {
             var bubble = document.createElement('div');
             bubble.className = 'bubble';
-            var size = Math.random() * 20 + 10 + 'px';
+            var size = Math.random() * 22 + 10 + 'px';
             bubble.style.width = size;
             bubble.style.height = size;
             bubble.style.left = Math.random() * 100 + '%';
@@ -352,7 +364,7 @@
             bg.appendChild(bubble);
         }
 
-        for (var j = 0; j < 30; j++) {
+        for (var j = 0; j < 35; j++) {
             var sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
             sparkle.style.left = Math.random() * 100 + '%';
@@ -371,12 +383,11 @@
                 overlay.style.visibility = 'hidden';
             }, 800);
 
-            // Iniciar la música automáticamente cuando el usuario toca "Abrir Invitación"
             audio.play().then(function() {
                 isPlaying = true;
                 document.getElementById('musicBtn').innerHTML = "⏸️";
             }).catch(function(e) {
-                console.log("Esperando reproducción", e);
+                console.log("Audio esperando reproducción", e);
             });
         }
 
