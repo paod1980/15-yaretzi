@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Yaretzi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050b14;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+        .card-container {
+            width: 100%;
+            max-width: 420px;
+            background: linear-gradient(180deg, #091325 0%, #050a12 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.2);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .moon-header {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px auto;
+        }
+        .moon-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
+        }
+        .title-sub {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+        .name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.8rem;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 5px #d4af37;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .section-box {
+            border-top: 1px solid rgba(212, 175, 55, 0.25);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            padding: 12px 0;
+            margin: 15px 0;
+        }
+        .label {
+            font-size: 0.8rem;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+        }
+        .value {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #f0f4f8;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #c5d3e8;
+            margin: 20px 10px;
+            line-height: 1.4;
+        }
+        .details-grid {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+        .detail-item {
+            flex: 1;
+        }
+        .detail-item .time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .location-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+        .location-address {
+            font-size: 0.82rem;
+            color: #a0b2ce;
+            margin-bottom: 15px;
+        }
+        .btn-map {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #050b14;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            margin-bottom: 15px;
+        }
+        .footer-banner {
+            border: 1px solid #d4af37;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            color: #d4af37;
+            margin-top: 10px;
+        }
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d4af37;
+            color: #050b14;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="music-btn" onclick="toggleAudio()">🎵</button>
+    <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112187.mp3"></audio>
+
+    <div class="card-container">
+        <div class="moon-header">
+            <svg class="moon-svg" viewBox="0 0 100 100">
+                <path d="M50 10 A40 40 0 1 0 90 50 A30 30 0 1 1 50 10 Z" fill="#d4af37" />
+                <circle cx="45" cy="40" r="3" fill="#ffffff" />
+                <circle cx="60" cy="55" r="2" fill="#ffffff" />
+                <circle cx="35" cy="65" r="2.5" fill="#ffffff" />
+            </svg>
+        </div>
+
+        <div class="title-sub">MIS XV AÑOS</div>
+        <div class="name">Yaretzi</div>
+
+        <div class="section-box">
+            <div class="label">Invitada</div>
+            <div class="value">Antonia Dorantes</div>
+        </div>
+
+        <div class="section-box">
+            <div class="label">Mis Padres</div>
+            <div class="value">Pablo Orozco y Claudia Pacheco</div>
+        </div>
+
+        <div class="section-box">
+            <div class="label">Padrinos</div>
+            <div class="value">Manuel Ferraez y Alma Pacheco</div>
+        </div>
+
+        <div class="quote">
+            “Hay momentos en la vida que son inolvidables<br>
+            y compartirlos con los que más quiero los hace<br>
+            más especiales”
+        </div>
+
+        <div class="label">Fecha</div>
+        <div class="value" style="font-size: 1.2rem; margin-bottom: 10px;">20 de Febrero de 2027</div>
+
+        <div class="details-grid">
+            <div class="detail-item">
+                <div class="label">⛪ Misa</div>
+                <div class="time">18:00 hrs</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">🥂 Recepción</div>
+                <div class="time">19:00 hrs</div>
+            </div>
+        </div>
+
+        <div class="location-title">📍 Sala de fiestas Los Ceibos</div>
+        <div class="location-address">Calle 50 x 149 y 151 • Cinco Colonias</div>
+
+        <a href="https://maps.google.com/?q=Sala+de+fiestas+Los+Ceibos+Cinco+Colonias" target="_blank" class="btn-map">VER UBICACIÓN EN MAPS</a>
+
+        <div>
+            <div class="footer-banner">Contamos con tu presencia</div>
+        </div>
+    </div>
+
+    <script>
+        var audio = document.getElementById('bgAudio');
+        var isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+        }
+    </script>
+</body>
+</html>
