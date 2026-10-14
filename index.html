@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis XV Años - Yaretzi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: #050b14;
+            background-color: #030814;
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
@@ -17,129 +18,226 @@
             align-items: center;
             padding: 10px;
             overflow-x: hidden;
+            position: relative;
         }
+
+        /* Pantalla de Portada / Entrada */
+        #welcomeOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #030814;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .welcome-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .welcome-sub {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-enter {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #997a15 100%);
+            color: #030814;
+            font-weight: 700;
+            border: none;
+            padding: 15px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            cursor: pointer;
+            animation: pulseBtn 2s infinite;
+        }
+
+        @keyframes pulseBtn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Fondo Animado de Estrellas */
+        .stars-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 20%, #0d1e3d 0%, #030814 80%);
+        }
+
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: floatUp 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.3); opacity: 0; }
+            30% { opacity: 0.8; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffd700;
+            animation: twinkle 3s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        /* Tarjeta Principal */
         .card-container {
+            position: relative;
+            z-index: 10;
             width: 100%;
             max-width: 420px;
-            background: linear-gradient(180deg, #091325 0%, #050a12 100%);
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 15px rgba(212, 175, 55, 0.2);
-            padding: 30px 20px;
+            background: rgba(6, 14, 30, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            border: 1.5px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.25);
+            padding: 35px 22px;
             text-align: center;
-            position: relative;
             overflow: hidden;
         }
-        .moon-header {
+
+        .moon-wrapper {
             position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 15px auto;
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 10px auto;
         }
-        .moon-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.6));
-        }
+
+        .moon-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.7)); }
+        
         .title-sub {
             font-family: 'Cinzel', serif;
-            letter-spacing: 4px;
-            font-size: 0.9rem;
+            letter-spacing: 5px;
+            font-size: 1.1rem;
             color: #d4af37;
-            margin-bottom: 5px;
+            margin-top: 5px;
         }
+
         .name {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.8rem;
+            font-size: 4.2rem;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 5px #d4af37;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 8px #d4af37;
+            line-height: 1;
+            margin-bottom: 25px;
         }
+
         .section-box {
-            border-top: 1px solid rgba(212, 175, 55, 0.25);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             padding: 12px 0;
-            margin: 15px 0;
+            margin: 14px 0;
         }
+
         .label {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             color: #d4af37;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
+
         .value {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 500;
-            color: #f0f4f8;
+            color: #ffffff;
         }
+
         .quote {
             font-style: italic;
-            font-size: 0.85rem;
-            color: #c5d3e8;
-            margin: 20px 10px;
-            line-height: 1.4;
+            font-size: 0.88rem;
+            color: #d0deef;
+            margin: 22px 10px;
+            line-height: 1.5;
         }
+
         .details-grid {
             display: flex;
             justify-content: space-around;
-            margin: 15px 0;
+            margin: 18px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 12px 0;
         }
-        .detail-item {
-            flex: 1;
-        }
+
         .detail-item .time {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: #ffffff;
         }
-        .location-title {
-            font-weight: 600;
-            color: #ffffff;
-            margin-top: 10px;
-            font-size: 0.95rem;
-        }
-        .location-address {
-            font-size: 0.82rem;
-            color: #a0b2ce;
-            margin-bottom: 15px;
-        }
+
+        .location-title { font-weight: 600; color: #ffffff; margin-top: 12px; font-size: 1rem; }
+        .location-address { font-size: 0.85rem; color: #b0c4de; margin-bottom: 18px; }
+
         .btn-map {
             display: inline-block;
-            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
-            color: #050b14;
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #997a15 100%);
+            color: #030814;
             font-weight: 700;
             text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-size: 0.85rem;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            margin-bottom: 18px;
         }
+
         .footer-banner {
             border: 1px solid #d4af37;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 22px;
+            border-radius: 25px;
             display: inline-block;
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #d4af37;
-            margin-top: 10px;
         }
+
         .music-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #d4af37;
-            color: #050b14;
+            bottom: 22px;
+            right: 22px;
+            background: linear-gradient(135deg, #ffe066, #d4af37);
+            color: #030814;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            font-size: 1.2rem;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+            font-size: 1.3rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
             cursor: pointer;
             z-index: 100;
         }
@@ -147,16 +245,46 @@
 </head>
 <body>
 
-    <button class="music-btn" onclick="toggleAudio()">🎵</button>
-    <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112187.mp3"></audio>
+    <!-- Pantalla de Entrada / Portada -->
+    <div id="welcomeOverlay">
+        <div class="welcome-sub">TE INVITAMOS A CELEBRAR LOS</div>
+        <div class="welcome-title">15 Años de Yaretzi</div>
+        <button class="btn-enter" onclick="openInvitation()">✨ ABRIR INVITACIÓN ✉️</button>
+    </div>
+
+    <div class="stars-bg" id="starsBg"></div>
+
+    <button class="music-btn" onclick="toggleAudio()" id="musicBtn">🎵</button>
+    
+    <!-- Archivo de canción MP3 local -->
+    <audio id="bgAudio" loop src="cancion.mp3"></audio>
 
     <div class="card-container">
-        <div class="moon-header">
-            <svg class="moon-svg" viewBox="0 0 100 100">
-                <path d="M50 10 A40 40 0 1 0 90 50 A30 30 0 1 1 50 10 Z" fill="#d4af37" />
-                <circle cx="45" cy="40" r="3" fill="#ffffff" />
-                <circle cx="60" cy="55" r="2" fill="#ffffff" />
-                <circle cx="35" cy="65" r="2.5" fill="#ffffff" />
+        <!-- Luna Dorada e Ilustración Floral -->
+        <div class="moon-wrapper">
+            <svg class="moon-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M110 20 C60 20 20 60 20 110 C20 160 60 200 110 200 C80 185 65 150 65 110 C65 70 80 35 110 20 Z" fill="url(#goldGrad)" />
+                <path d="M40 90 Q10 80 20 60 Q40 70 40 90 Z" fill="#8ab4f8" opacity="0.9" />
+                <path d="M50 75 Q25 55 45 40 Q60 60 50 75 Z" fill="#b3d1ff" opacity="0.9" />
+                <path d="M130 90 Q160 80 150 60 Q130 70 130 90 Z" fill="#8ab4f8" opacity="0.9" />
+                <path d="M120 75 Q145 55 125 40 Q110 60 120 75 Z" fill="#b3d1ff" opacity="0.9" />
+                <g transform="translate(85, 80)">
+                    <circle cx="-20" cy="10" r="10" fill="#ffffff" />
+                    <circle cx="0" cy="-5" r="12" fill="#f8fafc" />
+                    <circle cx="20" cy="10" r="10" fill="#ffffff" />
+                    <circle cx="-10" cy="20" r="9" fill="#f1f5f9" />
+                    <circle cx="10" cy="20" r="9" fill="#f1f5f9" />
+                    <circle cx="0" cy="-5" r="4" fill="#d4af37" />
+                    <circle cx="-20" cy="10" r="3" fill="#d4af37" />
+                    <circle cx="20" cy="10" r="3" fill="#d4af37" />
+                </g>
+                <defs>
+                    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff2a8" />
+                        <stop offset="50%" stop-color="#d4af37" />
+                        <stop offset="100%" stop-color="#8a6d0b" />
+                    </linearGradient>
+                </defs>
             </svg>
         </div>
 
@@ -164,17 +292,17 @@
         <div class="name">Yaretzi</div>
 
         <div class="section-box">
-            <div class="label">Invitada</div>
+            <div class="label">📅 Invitada</div>
             <div class="value">Antonia Dorantes</div>
         </div>
 
         <div class="section-box">
-            <div class="label">Mis Padres</div>
+            <div class="label">👨‍👩‍👧 Mis padres</div>
             <div class="value">Pablo Orozco y Claudia Pacheco</div>
         </div>
 
         <div class="section-box">
-            <div class="label">Padrinos</div>
+            <div class="label">🥂 Padrinos</div>
             <div class="value">Manuel Ferraez y Alma Pacheco</div>
         </div>
 
@@ -184,8 +312,10 @@
             más especiales”
         </div>
 
-        <div class="label">Fecha</div>
-        <div class="value" style="font-size: 1.2rem; margin-bottom: 10px;">20 de Febrero de 2027</div>
+        <div class="section-box">
+            <div class="label">🗓 Fecha</div>
+            <div class="value" style="font-size: 1.25rem;">20 de Febrero de 2027</div>
+        </div>
 
         <div class="details-grid">
             <div class="detail-item">
@@ -209,15 +339,56 @@
     </div>
 
     <script>
+        // Efecto de burbujas y destellos
+        var bg = document.getElementById('starsBg');
+        for (var i = 0; i < 18; i++) {
+            var bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            var size = Math.random() * 20 + 10 + 'px';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + '%';
+            bubble.style.animationDelay = Math.random() * 6 + 's';
+            bg.appendChild(bubble);
+        }
+
+        for (var j = 0; j < 30; j++) {
+            var sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            bg.appendChild(sparkle);
+        }
+
         var audio = document.getElementById('bgAudio');
         var isPlaying = false;
 
+        function openInvitation() {
+            var overlay = document.getElementById('welcomeOverlay');
+            overlay.style.opacity = '0';
+            setTimeout(function() {
+                overlay.style.visibility = 'hidden';
+            }, 800);
+
+            // Iniciar la música automáticamente cuando el usuario toca "Abrir Invitación"
+            audio.play().then(function() {
+                isPlaying = true;
+                document.getElementById('musicBtn').innerHTML = "⏸️";
+            }).catch(function(e) {
+                console.log("Esperando reproducción", e);
+            });
+        }
+
         function toggleAudio() {
+            var btn = document.getElementById('musicBtn');
             if (isPlaying) {
                 audio.pause();
+                btn.innerHTML = "🎵";
                 isPlaying = false;
             } else {
                 audio.play();
+                btn.innerHTML = "⏸️";
                 isPlaying = true;
             }
         }
