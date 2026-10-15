@@ -137,13 +137,6 @@
             margin: 0 auto 10px auto;
         }
 
-        .moon-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
-        }
-
         .title-sub {
             font-family: 'Cinzel', serif;
             letter-spacing: 5px;
@@ -305,7 +298,8 @@
 
         <div class="section-box">
             <div class="label">📅 Invitada</div>
-            <div class="value">Antonia Dorantes</div>
+            <!-- Nombre Dinámico del Invitado -->
+            <div class="value" id="invitadoNombre">Antonia Dorantes</div>
         </div>
 
         <div class="section-box">
@@ -351,7 +345,15 @@
     </div>
 
     <script>
-        // Animaciones de Burbujas y Destellos
+        // LECTURA DINÁMICA DEL NOMBRE DEL INVITADO DESDE EL LINK
+        var params = new URLSearchParams(window.location.search);
+        var nombreParam = params.get('invitado');
+
+        if (nombreParam) {
+            document.getElementById('invitadoNombre').innerText = decodeURIComponent(nombreParam.replace(/\+/g, ' '));
+        }
+
+        // Animaciones
         var bg = document.getElementById('starsBg');
         for (var i = 0; i < 20; i++) {
             var bubble = document.createElement('div');
@@ -387,7 +389,7 @@
                 isPlaying = true;
                 document.getElementById('musicBtn').innerHTML = "⏸️";
             }).catch(function(e) {
-                console.log("Audio esperando reproducción", e);
+                console.log("Audio esperando interacción", e);
             });
         }
 
