@@ -238,31 +238,26 @@
             margin: 0 8px;
         }
 
-        /* BOX EXCLUSIVO CON IMAGEN CLARA, BRILLANTE Y FONDO TOTALMENTE TRANSPARENTE */
+        /* BOX EXCLUSIVO CON CANVAS PRO DE TRANSPARENCIA */
         .photo-box {
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Cristalera transparente que deja ver la galaxia y las estrellas */
             background: rgba(10, 25, 50, 0.25);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
 
-        .photo-box img {
+        #yaretziCanvas {
             width: 100%;
-            max-width: 520px;
+            max-width: 500px;
             height: auto;
             border-radius: 20px;
             border: 2px solid rgba(212, 175, 55, 0.7);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.25);
-            object-fit: cover;
             display: block;
             margin: 0 auto;
-            /* MANTENER COLORES REALES Y BRILLANTES SIN OSCURECER */
-            mix-blend-mode: normal;
-            filter: brightness(1.08) contrast(1.05);
         }
 
         /* GRID DE TIQUETE / PASES CON IDS DINÁMICOS */
@@ -585,9 +580,9 @@
             </div>
         </div>
 
-        <!-- SEGUNDO BOX: EXCLUSIVO PARA LA FOTO DE YARETZI - BRILLANTE Y DESTELLOS VISIBLES -->
+        <!-- SEGUNDO BOX: EXCLUSIVO CON CANVAS DE TRANSPARENCIA AUTOMÁTICA -->
         <div class="glass-box photo-box">
-            <img src="yaretzi.png" alt="Yaretzi - Quinceañera">
+            <canvas id="yaretziCanvas"></canvas>
         </div>
 
         <!-- SECCIÓN DE INVITADO, PASE INDIVIDUAL Y MESA CON IDS DINÁMICOS -->
@@ -707,9 +702,48 @@
 
     </div>
 
-    <!-- SCRIPTS INTERACTIVOS, LECTURA DINÁMICA DE URL Y MÚSICA -->
+    <!-- SCRIPTS INTERACTIVOS, LECTURA DINÁMICA DE URL, REMOCIÓN AUTOMÁTICA DE BLANCO Y MÚSICA -->
     <script>
-        // 1. LECTURA DINÁMICA DE PARÁMETROS DE LA URL
+        // 1. PROCESADOR MASTER PRO EN CANVAS: REMUEVE EL FONDO BLANCO EN TIEMPO REAL
+        function procesarImagenTransparente() {
+            const canvas = document.getElementById('yaretziCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.crossOrigin = "Anonymous";
+            img.src = "yaretzi.png";
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                // Dibujar imagen original
+                ctx.drawImage(img, 0, 0);
+
+                // Obtener datos de píxeles
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imgData.data;
+
+                // Algoritmo de eliminación de fondo blanco o claro
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+
+                    // Si el píxel es blanco o gris muy claro (patrones de fondo)
+                    if (r > 210 && g > 210 && b > 210) {
+                        data[i + 3] = 0; // Transparencia Alpha 100%
+                    }
+                }
+
+                // Renderizar la imagen procesada con transparencia limpia
+                ctx.putImageData(imgData, 0, 0);
+            };
+        }
+
+        window.addEventListener('load', procesarImagenTransparente);
+
+        // 2. LECTURA DINÁMICA DE PARÁMETROS DE LA URL
         function cargarDatosInvitado() {
             const urlParams = new URLSearchParams(window.location.search);
             
@@ -728,10 +762,9 @@
             document.getElementById('invitadoMesa').innerText = mesa.toLowerCase().includes('mesa') ? mesa : `Mesa # ${mesa}`;
         }
 
-        // Ejecutar lectura inmediatamente al cargar la página
         cargarDatosInvitado();
 
-        // 2. INICIAR EXPERIENCIA Y REPRODUCIR MÚSICA
+        // 3. INICIAR EXPERIENCIA Y REPRODUCIR MÚSICA
         let bgMusic = document.getElementById('bgMusic');
         let audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
@@ -774,7 +807,7 @@
             isPlaying = !isPlaying;
         }
 
-        // 3. CUENTA REGRESIVA
+        // 4. CUENTA REGRESIVA
         const targetDate = new Date("2027-02-20T20:30:00").getTime();
 
         setInterval(function() {
@@ -794,7 +827,7 @@
             }
         }, 1000);
 
-        // 4. CANVAS DE ESTRELLAS ANIMADAS
+        // 5. CANVAS DE ESTRELLAS ANIMADAS
         const canvas = document.getElementById('starsCanvas');
         const ctx = canvas.getContext('2d');
 
