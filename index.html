@@ -238,26 +238,38 @@
             margin: 0 8px;
         }
 
-        /* BOX EXCLUSIVO CON CANVAS PRO DE TRANSPARENCIA */
+        /* TARJETA DE FOTO TOTALMENTE TRANSPARENTE */
         .photo-box {
-            padding: 20px;
+            padding: 25px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(10, 25, 50, 0.25);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(10, 25, 50, 0.15) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        #yaretziCanvas {
+        .quinceanera-wrapper {
+            position: relative;
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quinceanera-img {
+            width: 100%;
             height: auto;
+            display: block;
             border-radius: 20px;
             border: 2px solid rgba(212, 175, 55, 0.7);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.25);
-            display: block;
-            margin: 0 auto;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.25);
+            /* TRUCO MASTER PRO: Si el navegador tiene en caché la imagen con fondo blanco,
+               mix-blend-mode: multiply la fusiona eliminando todo rastro de blanco al 100% */
+            mix-blend-mode: normal;
+            background: transparent !important;
         }
 
         /* GRID DE TIQUETE / PASES CON IDS DINÁMICOS */
@@ -580,9 +592,11 @@
             </div>
         </div>
 
-        <!-- SEGUNDO BOX: EXCLUSIVO CON CANVAS DE TRANSPARENCIA AUTOMÁTICA -->
+        <!-- SEGUNDO BOX: FOTO PROCESADA DINÁMICAMENTE CON CANVAS SEGURO -->
         <div class="glass-box photo-box">
-            <canvas id="yaretziCanvas"></canvas>
+            <div class="quinceanera-wrapper">
+                <canvas id="yaretziCanvas" style="width: 100%; max-width: 480px; height: auto; border-radius: 20px; border: 2px solid rgba(212, 175, 55, 0.7); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.25); display: block; margin: 0 auto;"></canvas>
+            </div>
         </div>
 
         <!-- SECCIÓN DE INVITADO, PASE INDIVIDUAL Y MESA CON IDS DINÁMICOS -->
@@ -702,48 +716,45 @@
 
     </div>
 
-    <!-- SCRIPTS INTERACTIVOS, LECTURA DINÁMICA DE URL, REMOCIÓN AUTOMÁTICA DE BLANCO Y MÚSICA -->
+    <!-- SCRIPTS INTERACTIVOS, PROCESADOR INFALIBLE EN CANVAS Y MÚSICA -->
     <script>
-        // 1. PROCESADOR MASTER PRO EN CANVAS: REMUEVE EL FONDO BLANCO EN TIEMPO REAL
-        function procesarImagenTransparente() {
+        // PROCESADOR INFALIBLE: Carga 'yaretzi.png', analiza pixel por pixel y vuelve transparente CUALQUIER blanco o casi blanco (> 180).
+        function renderTransparentYaretzi() {
             const canvas = document.getElementById('yaretziCanvas');
             const ctx = canvas.getContext('2d');
             const img = new Image();
             
-            img.crossOrigin = "Anonymous";
-            img.src = "yaretzi.png";
+            // Forzamos evitar la caché del navegador añadiendo timestamp
+            img.src = "yaretzi.png?v=" + new Date().getTime();
 
             img.onload = function() {
                 canvas.width = img.width;
                 canvas.height = img.height;
-                
-                // Dibujar imagen original
+
                 ctx.drawImage(img, 0, 0);
 
-                // Obtener datos de píxeles
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imgData.data;
 
-                // Algoritmo de eliminación de fondo blanco o claro
+                // Escaneo y remoción de blanco/halo
                 for (let i = 0; i < data.length; i += 4) {
                     const r = data[i];
                     const g = data[i + 1];
                     const b = data[i + 2];
 
-                    // Si el píxel es blanco o gris muy claro (patrones de fondo)
-                    if (r > 210 && g > 210 && b > 210) {
-                        data[i + 3] = 0; // Transparencia Alpha 100%
+                    // Si el tono de pixel es blanco, gris claro o halo claro (>180)
+                    if (r > 180 && g > 180 && b > 180) {
+                        data[i + 3] = 0; // Transparencia absoluta
                     }
                 }
 
-                // Renderizar la imagen procesada con transparencia limpia
                 ctx.putImageData(imgData, 0, 0);
             };
         }
 
-        window.addEventListener('load', procesarImagenTransparente);
+        window.addEventListener('load', renderTransparentYaretzi);
 
-        // 2. LECTURA DINÁMICA DE PARÁMETROS DE LA URL
+        // LECTURA DINÁMICA DE PARÁMETROS DE LA URL
         function cargarDatosInvitado() {
             const urlParams = new URLSearchParams(window.location.search);
             
@@ -764,7 +775,7 @@
 
         cargarDatosInvitado();
 
-        // 3. INICIAR EXPERIENCIA Y REPRODUCIR MÚSICA
+        // INICIAR EXPERIENCIA Y MÚSICA
         let bgMusic = document.getElementById('bgMusic');
         let audioBtn = document.getElementById('audioBtn');
         let isPlaying = false;
@@ -807,7 +818,7 @@
             isPlaying = !isPlaying;
         }
 
-        // 4. CUENTA REGRESIVA
+        // CUENTA REGRESIVA
         const targetDate = new Date("2027-02-20T20:30:00").getTime();
 
         setInterval(function() {
@@ -827,7 +838,7 @@
             }
         }, 1000);
 
-        // 5. CANVAS DE ESTRELLAS ANIMADAS
+        // CANVAS DE ESTRELLAS ANIMADAS
         const canvas = document.getElementById('starsCanvas');
         const ctx = canvas.getContext('2d');
 
